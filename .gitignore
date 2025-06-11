@@ -1,0 +1,35 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtualenv
+venv/
+.env
+*.env
+
+# VSCode / IDEs
+.vscode/
+.idea/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Python test & coverage
+.coverage
+htmlcov/
+.cache/
+.pytest_cache/
+
+# Log files
+*.log
+
+# Migrations
+alembic/versions/
+
+# Dependency lock files (optional)
+Pipfile.lock
+poetry.lock
+
