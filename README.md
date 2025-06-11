@@ -32,33 +32,57 @@ Ziel ist eine skalierbare, wartbare Anwendung mit klar definierten Rollen und au
 
 
 Inventur-System/
-├── backend/
-│ ├── app/
-│ │ ├── auth/ # Authentifizierungs-Logik
-│ │ ├── crud/ # Datenbank-Operationen (Create, Read, Update, Delete)
-│ │ ├── logs/ # Logging Utility
-│ │ ├── models/ # SQLAlchemy ORM Modelle
-│ │ ├── routers/ # API Endpoints (FastAPI-Router)
-│ │ ├── schemas/ # Pydantic Schemas für Validierung & Serialisierung
-│ │ ├── services/ # Business-Logik, Scraper etc.
-│ │ ├── config.py # Konfiguration (z.B. Umgebungsvariablen)
-│ │ ├── database.py # Datenbank-Session Setup
-│ │ └── main.py # FastAPI App-Initialisierung
-│ ├── requirements.txt # Python Dependencies
-│ └── Dockerfile # Backend Docker Image
-├── frontend/
-│ ├── public/ # Statische Dateien
-│ ├── src/
-│ │ ├── components/ # Wiederverwendbare UI Komponenten
-│ │ ├── pages/ # Seiten (Views)
-│ │ ├── services/ # API Calls und Business Logic
-│ │ ├── App.jsx # Hauptkomponente
-│ │ └── index.jsx # Einstiegspunkt React App
-│ ├── package.json # Frontend Dependencies
-│ └── Dockerfile # Frontend Docker Image
-├── docker-compose.yml # Orchestrierung Backend, Frontend, DB
+├── backend
+│ ├── app
+│ │ ├── auth
+│ │ │ ├── init.py
+│ │ │ └── auth.py
+│ │ ├── crud
+│ │ │ ├── init.py
+│ │ │ ├── inventory_crud.py
+│ │ │ ├── product_crud.py
+│ │ │ └── user_crud.py
+│ │ ├── logs
+│ │ │ └── init.py
+│ │ ├── models
+│ │ │ ├── init.py
+│ │ │ ├── inventory.py
+│ │ │ ├── product.py
+│ │ │ └── user.py
+│ │ ├── routers
+│ │ │ ├── init.py
+│ │ │ ├── auth_router.py
+│ │ │ ├── inventory_router.py
+│ │ │ ├── product_router.py
+│ │ │ └── user_router.py
+│ │ ├── schemas
+│ │ │ ├── init.py
+│ │ │ ├── inventory_schema.py
+│ │ │ ├── product_schema.py
+│ │ │ └── user_schema.py
+│ │ ├── services
+│ │ │ └── scraper.py
+│ │ ├── init.py
+│ │ ├── config.py
+│ │ ├── database.py
+│ │ └── main.py
+│ ├── Dockerfile
+│ └── requirements.txt
+├── frontend
+│ ├── public
+│ ├── src
+│ │ ├── components
+│ │ ├── pages
+│ │ ├── services
+│ │ ├── App.jsx
+│ │ └── index.jsx
+│ ├── Dockerfile
+│ ├── package.json
+│ └── vite.config.js
+├── docker-compose.yml
+├── LICENSE
 ├── README.md
-└── .gitignore
+└── requirements.txt
 
 ---
 
