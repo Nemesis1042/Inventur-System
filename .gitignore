@@ -1,35 +1,21 @@
-# Byte-compiled / cache
-__pycache__/
-*.py[cod]
-*.pyo
-*.pyd
-
-# Virtualenv
-venv/
-.env
-*.env
-
-# VSCode / IDEs
+# OS & Editor
+.DS_Store
+Thumbs.db
+*.swp
 .vscode/
 .idea/
 
-# OS-specific
-.DS_Store
-Thumbs.db
+# Node & Python
+node_modules/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
 
-# Python test & coverage
-.coverage
-htmlcov/
-.cache/
-.pytest_cache/
+# Env Files
+*.env
 
-# Log files
+# Docker
 *.log
-
-# Migrations
-alembic/versions/
-
-# Dependency lock files (optional)
-Pipfile.lock
-poetry.lock
+db_data/
 
