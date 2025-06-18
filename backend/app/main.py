@@ -24,10 +24,13 @@ app.include_router(user_router, prefix="/users", tags=["User"])
 app.include_router(product_router, prefix="/products", tags=["Product"])
 app.include_router(inventory_router, prefix="/inventory", tags=["Inventory"])
 
-@app.get("/")
-async def root():
-    return {"message": "Inventur-System API läuft"}
-
+@app.get("/health", tags=["System"])
+async def health():
+    return {
+        "status": "ok",
+        "version": "1.0.0",
+        "message": "Inventur-System API erreichbar"
+    }
 
 if __name__ == "__main__":
     import uvicorn
