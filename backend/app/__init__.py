@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers import auth_router, user_router, product_router, inventory_router
+from .routers import auth_router, user_router, product_router, inventory_router
 
 app = FastAPI(
     title="Inventur-System API",
