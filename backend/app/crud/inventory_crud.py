@@ -13,6 +13,9 @@ def get_inventory_by_product(db: Session, product_id: int):
 
 def get_all_inventory(db: Session, skip: int = 0, limit: int = 100):
     return db.query(Inventory).offset(skip).limit(limit).all()
+# Alias für Kompatibilität mit Routern
+def get_inventories(db: Session, skip: int = 0, limit: int = 100):
+    return get_all_inventory(db, skip=skip, limit=limit)
 
 
 def create_inventory(db: Session, inventory: InventoryCreate):

@@ -19,10 +19,15 @@ app.add_middleware(
 )
 
 # Router einbinden
-app.include_router(auth_router.router, prefix="/auth", tags=["Auth"])
-app.include_router(user_router.router, prefix="/users", tags=["User"])
-app.include_router(product_router.router, prefix="/products", tags=["Product"])
-app.include_router(inventory_router.router, prefix="/inventory", tags=["Inventory"])
+app.include_router(auth_router, prefix="/auth", tags=["Auth"])
+app.include_router(user_router, prefix="/users", tags=["User"])
+app.include_router(product_router, prefix="/products", tags=["Product"])
+app.include_router(inventory_router, prefix="/inventory", tags=["Inventory"])
+
+@app.get("/")
+async def root():
+    return {"message": "Inventur-System API läuft"}
+
 
 if __name__ == "__main__":
     import uvicorn
