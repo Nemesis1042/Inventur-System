@@ -31,7 +31,10 @@ def authenticate_user(db: Session, username: str, password: str):
 
 @router.post("/login", response_model=TokenResponse)
 def login(data: LoginRequest, db: Session = Depends(SessionLocal)):
-    print("LOGIN PAYLOAD:", data)
-    return {"access_token": "debug", "token_type": "bearer"}  # testweise
-
+    user = authenticate_user(db, data.username, data.password)
+    if not user:
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_token(data={"sub": user.username, "role": user.role}, expires_delta=access_token_expires)
+    return {"access_token": access_token, "token_type": "bearer"}
 

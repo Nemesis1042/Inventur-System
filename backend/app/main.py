@@ -24,7 +24,7 @@ app.add_middleware(
 
 # Router einbinden
 app.include_router(auth_router, prefix="/auth", tags=["Auth"])
-app.include_router(user_router, prefix="/users", tags=["User"])
+app.include_router(user_router)
 app.include_router(product_router, prefix="/products", tags=["Product"])
 app.include_router(inventory_router, prefix="/inventory", tags=["Inventory"])
 

@@ -8,6 +8,7 @@ class UserRole(str, Enum):
     IT = "it"
 
 class UserBase(BaseModel):
+    username: str
     role: Optional[UserRole] = UserRole.MITARBEITER
 
 
@@ -20,8 +21,10 @@ class UserUpdate(BaseModel):
     role: Optional[UserRole] = None
 
 
-class UserOut(UserBase):
+class UserOut(BaseModel):
     id: int
+    username: str
+    role: str
 
     class Config:
         orm_mode = True

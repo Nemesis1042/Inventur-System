@@ -17,7 +17,7 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String, unique=True, index=True)
     hashed_password = Column(String(255), nullable=False)
-    full_name = Column(String(255), nullable=False)
+    #full_name = Column(String(255), nullable=False)
     role = Column(Enum(UserRole), default=UserRole.MITARBEITER, nullable=False)
 
     # Beispiel: relationship zu Log- oder Inventory-Einträgen, wenn du willst

@@ -1,0 +1,42 @@
+.navbar {
+  background-color: #222;
+  overflow: hidden;
+  padding: 0;
+}
+
+.navbar-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-list li {
+  padding: 14px 20px;
+}
+
+.navbar-list li a {
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.navbar-list li.active a {
+  background-color: #0077cc;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.navbar-list li.right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.role-badge {
+  color: #ccc;
+  font-weight: bold;
+  padding: 0 10px;
+}
+

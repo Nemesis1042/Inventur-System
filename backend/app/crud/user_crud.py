@@ -14,8 +14,8 @@ def get_user(db: Session, user_id: int) -> User | None:
     return db.query(User).filter(User.id == user_id).first()
 
 
-def get_user_by_email(db: Session, email: str) -> User | None:
-    return db.query(User).filter(User.email == email).first()
+#def get_user_by_email(db: Session, email: str) -> User | None:
+#    return db.query(User).filter(User.email == email).first()
 
 
 def get_users(db: Session, skip: int = 0, limit: int = 100) -> list[User]:
@@ -34,9 +34,9 @@ def create_user(db: Session, user: UserCreate) -> User:
     hashed_password = get_password_hash(user.password)
     db_user = User(
         username=user.username,
-        email=user.email,
+        #email=user.email,
         hashed_password=hashed_password,
-        full_name=user.full_name,
+        #full_name=user.full_name,
         role=UserRole[user.role.upper()] if user.role else UserRole.MITARBEITER,
     )
     db.add(db_user)
@@ -49,10 +49,10 @@ def update_user(db: Session, user_id: int, user_update: UserUpdate) -> User | No
     db_user = get_user(db, user_id)
     if not db_user:
         return None
-    if user_update.email:
-        db_user.email = user_update.email
-    if user_update.full_name:
-        db_user.full_name = user_update.full_name
+    #if user_update.email:
+    #    db_user.email = user_update.email
+    #if user_update.full_name:
+    #    db_user.full_name = user_update.full_name
     if user_update.password:
         db_user.hashed_password = get_password_hash(user_update.password)
     if user_update.role:
