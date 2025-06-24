@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom'
+
 import { login } from "../services/authService";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-
+  const navigate = useNavigate(); // ✅ HINZUGEFÜGT
   async function handleLogin(e) {
     e.preventDefault();
     setError(null);
@@ -14,7 +16,7 @@ export default function LoginPage() {
       const { access_token } = await login(username, password);
       localStorage.setItem("token", access_token);
       alert("Login erfolgreich");
-      // TODO: redirect to dashboard o.ä.
+      navigate("/dashboard"); // ✅ Weiterleitung zum Dashboard
     } catch (err) {
       setError(err.message);
     }
