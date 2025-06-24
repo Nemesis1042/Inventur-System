@@ -1,18 +1,19 @@
-import React from 'react';
-import InventoryTable from './InventoryTable';
-import AdminDashboard from './AdminDashboard';
-import ITDashboard from './ITDashboard'; // 👈 NEU
+// components/Dashboard/DashboardWrapper.jsx
+import React from "react";
+import AdminDashboard from "./AdminDashboard";
+import ITDashboard from "./ITDashboard";
+import MitarbeiterDashboard from "./MitarbeiterDashboard";
 
 export default function DashboardWrapper({ role }) {
-  switch (role) {
-    case 'mitarbeiter':
-      return <InventoryTable />;
-    case 'admin':
+  switch (role?.toLowerCase()) {
+    case "admin":
       return <AdminDashboard />;
-    case 'it':
-      return <ITDashboard />; // 👈 IT Dashboard hier
+    case "it":
+      return <ITDashboard />;
+    case "mitarbeiter":
+      return <MitarbeiterDashboard />;
     default:
-      return <p>Keine Berechtigung</p>;
+      return <p>Unbekannte Rolle: {role}</p>;
   }
 }
 

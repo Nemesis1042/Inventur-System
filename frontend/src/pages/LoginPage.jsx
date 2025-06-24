@@ -15,7 +15,6 @@ export default function LoginPage() {
     try {
       const { access_token } = await login(username, password);
       localStorage.setItem("token", access_token);
-      alert("Login erfolgreich");
       navigate("/dashboard"); // ✅ Weiterleitung zum Dashboard
     } catch (err) {
       setError(err.message);
