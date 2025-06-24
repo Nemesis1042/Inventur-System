@@ -1,17 +1,27 @@
 const API_BASE = "http://localhost:8000";
 
 export async function login(username, password) {
-  const res = await fetch(`${API_BASE}/auth/login`, {
+    console.log("📤 Login-Request Payload:", {
+    	username,
+    	password
+    });
+    const res = await fetch(`${API_BASE}/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username, password }),
   });
 
   if (!res.ok) {
-    const err = await res.json();
-    throw new Error(err.detail || "Login fehlgeschlagen");
+    let errorMsg = "Login fehlgeschlagen";
+    try {
+      const error = await res.json(); // versucht JSON zu lesen
+      errorMsg = error.detail || JSON.stringify(error);
+    } catch {
+      errorMsg = await res.text(); // Fallback, falls kein JSON
+    }
+    throw new Error(errorMsg);
   }
 
-  return res.json(); // { access_token, token_type }
+  return res.json(); // → { access_token, token_type }
 }
 

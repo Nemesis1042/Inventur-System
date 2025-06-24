@@ -3,9 +3,6 @@ from ..database import Base
 from datetime import datetime
 from sqlalchemy.orm import relationship
 
-# innerhalb Product-Klasse:
-inventory_entries = relationship("Inventory", back_populates="product")
-
 
 class Product(Base):
     __tablename__ = "products"
@@ -17,3 +14,4 @@ class Product(Base):
     barcode = Column(String(128), unique=True, index=True, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    inventory_items = relationship("Inventory", back_populates="product")

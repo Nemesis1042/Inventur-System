@@ -31,9 +31,7 @@ def authenticate_user(db: Session, username: str, password: str):
 
 @router.post("/login", response_model=TokenResponse)
 def login(data: LoginRequest, db: Session = Depends(SessionLocal)):
-    user = authenticate_user(db, data.username, data.password)
-    if not user:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Ungültige Anmeldedaten")
-    token = create_token({"sub": user.username, "role": user.role}, timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
-    return {"access_token": token, "token_type": "bearer"}
+    print("LOGIN PAYLOAD:", data)
+    return {"access_token": "debug", "token_type": "bearer"}  # testweise
+
 

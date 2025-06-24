@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
+from sqlalchemy import text
+from app.database import engine
 from app.routers import auth_router, user_router, product_router, inventory_router
 
 app = FastAPI(
@@ -31,6 +32,15 @@ async def health():
         "version": "1.0.0",
         "message": "Inventur-System API erreichbar"
     }
+@app.get("/ping-db")
+def ping_db():
+    try:
+        with engine.connect() as connection:
+            connection.execute(text("SELECT 1"))
+        return {"status": "✅ Verbindung zur Datenbank erfolgreich"}
+    except Exception as e:
+        return {"status": "❌ Fehler bei der Verbindung", "error": str(e)}
+
 
 if __name__ == "__main__":
     import uvicorn

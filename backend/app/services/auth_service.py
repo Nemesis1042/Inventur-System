@@ -11,6 +11,7 @@ from app.models.user import User
 from app.crud.user_crud import get_user_by_username
 from app.database import get_db
 from app.schemas.token_schema import TokenData
+from app.schemas.user_schema import UserRole
 
 # Konfiguration – für echten Einsatz aus ENV laden
 SECRET_KEY = "dein-geheimer-key"
@@ -37,6 +38,8 @@ def get_password_hash(password: str) -> str:
 def authenticate_user(db: Session, username: str, password: str) -> Optional[User]:
     user = get_user_by_username(db, username)
     if not user or not verify_password(password, user.hashed_password):
+        print("User from DB:", user)
+        print("Password match:", verify_password(password, user.hashed_password))
         return None
     return user
 
@@ -46,6 +49,19 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
+def create_user(db: Session, username: str, password: str, role: str | None = "mitarbeiter") -> User | None:
+    existing_user = db.query(User).filter(User.username == username).first()
+    if existing_user:
+        return None  # User existiert schon
+
+    hashed_password = get_password_hash(password)
+    role_enum = UserRole(role.lower())
+
+    new_user = User(username=username, hashed_password=hashed_password, role=role_enum)
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    return new_user
 
 # --------------------------------
 # DEPENDENCIES für FastAPI

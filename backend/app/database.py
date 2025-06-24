@@ -3,7 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import os
 
-DATABASE_URL = os.getenv("DATABASE_URL", "mysql+pymysql://user:password@localhost:3306/inventur_db")
+DATABASE_URL = os.getenv("DATABASE_URL", "mysql+pymysql://root:toor@localhost:3306/inventur_db")
 
 engine = create_engine(DATABASE_URL, pool_pre_ping=True)
 
