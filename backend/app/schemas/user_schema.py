@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr, constr
+from pydantic import BaseModel,  constr
 from typing import Optional
 from enum import Enum
 
@@ -17,6 +17,7 @@ class UserCreate(UserBase):
 
 
 class UserUpdate(BaseModel):
+    username: Optional[constr(min_length=3)] = None
     password: Optional[constr(min_length=8)] = None
     role: Optional[UserRole] = None
 
@@ -27,5 +28,4 @@ class UserOut(BaseModel):
     role: str
 
     class Config:
-        orm_mode = True
-
+         from_attributes = True

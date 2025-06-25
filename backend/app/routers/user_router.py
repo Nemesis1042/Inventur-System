@@ -16,16 +16,18 @@ async def read_users(
 ):
     return get_users(db)
 
-@router.get("/{user_id}", response_model=UserOut)
-async def read_user(
+@router.put("/{user_id}", response_model=UserOut)
+async def update_existing_user(
     user_id: int,
-    current_user=Depends(get_current_active_user),
+    user: UserUpdate,
+    current_user=Depends(get_current_active_admin),  # Nur Admins dürfen bearbeiten
     db: Session = Depends(get_db),
 ):
-    user = get_user(db, user_id)
-    if not user:
+    db_user = get_user(db, user_id)
+    if not db_user:
         raise HTTPException(status_code=404, detail="User not found")
-    return user
+    return update_user(db, user_id, user)
+
 
 @router.post("/", response_model=UserOut, status_code=status.HTTP_201_CREATED)
 async def create_new_user(
@@ -34,18 +36,6 @@ async def create_new_user(
     db: Session = Depends(get_db),
 ):
     return create_user(db, user)
-
-@router.put("/{user_id}", response_model=UserOut)
-async def update_existing_user(
-    user_id: int,
-    user: UserUpdate,
-    current_user=Depends(get_current_active_admin),
-    db: Session = Depends(get_db),
-):
-    db_user = get_user(db, user_id)
-    if not db_user:
-        raise HTTPException(status_code=404, detail="User not found")
-    return update_user(db, user_id, user)
 
 @router.delete("/{user_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_existing_user(

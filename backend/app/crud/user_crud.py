@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from app.models.user import User, UserRole
 from app.schemas.user_schema import UserCreate, UserUpdate
 from passlib.context import CryptContext
+from app.security import get_password_hash  # Passwort-Hash-Funktion
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -45,21 +46,24 @@ def create_user(db: Session, user: UserCreate) -> User:
     return db_user
 
 
-def update_user(db: Session, user_id: int, user_update: UserUpdate) -> User | None:
-    db_user = get_user(db, user_id)
-    if not db_user:
+def update_user(db: Session, user_id: int, user_update: UserUpdate):
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
         return None
-    #if user_update.email:
-    #    db_user.email = user_update.email
-    #if user_update.full_name:
-    #    db_user.full_name = user_update.full_name
+
+    if user_update.username is not None:
+        user.username = user_update.username
+
+    if user_update.role is not None:
+        user.role = user_update.role.value  # Falls Enum als String gespeichert wird
+
     if user_update.password:
-        db_user.hashed_password = get_password_hash(user_update.password)
-    if user_update.role:
-        db_user.role = UserRole[user_update.role.upper()]
+        user.hashed_password = get_password_hash(user_update.password)
+
     db.commit()
-    db.refresh(db_user)
-    return db_user
+    db.refresh(user)
+    return user
+
 
 
 def delete_user(db: Session, user_id: int) -> bool:

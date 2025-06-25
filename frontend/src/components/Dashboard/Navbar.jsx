@@ -13,7 +13,7 @@ export default function Navbar({ currentTab, setTab, role }) {
   return (
     <nav className="navbar">
       <ul className="navbar-list">
-	<li className="right">
+	<li className="left">
            <span className="role-badge">{role.toUpperCase()}</span>
   	</li>
         {role === "admin" && (
@@ -26,8 +26,11 @@ export default function Navbar({ currentTab, setTab, role }) {
             </li>
           </>
         )}
-        <li className="right">
-          <a onClick={handleLogout}>Logout</a>
+	<li>
+	<button onClick={() => setTab("produkte")}>Produkte</button>
+        </li>
+	<li className="right">
+	<a onClick={handleLogout}>Logout</a>
         </li>
       </ul>
     </nav>
