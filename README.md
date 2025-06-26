@@ -124,7 +124,7 @@ Inventur-System/
 4. API starten (mit Hot-Reload):
 
    ```bash
-   uvicorn backend.app.main:app --reload
+   uvicorn app.main:app --reload
    ```
 
 ---
